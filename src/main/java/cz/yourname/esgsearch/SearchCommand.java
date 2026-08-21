@@ -22,7 +22,6 @@ public class SearchCommand implements CommandExecutor, TabCompleter {
             sender.sendMessage(ESGSearch.getMessage("messages.only-player"));
             return true;
         }
-
         if (args.length == 0) {
             player.sendMessage(ESGSearch.getMessage("messages.usage"));
             return true;
@@ -32,8 +31,7 @@ public class SearchCommand implements CommandExecutor, TabCompleter {
         Material matchedMaterial = findMaterialFromConfig(rawInput);
 
         if (matchedMaterial == null) {
-            String msg = ESGSearch.getMessage("messages.not-found").replace("{input}", rawInput);
-            player.sendMessage(msg);
+            player.sendMessage(ESGSearch.getMessage("messages.not-found").replace("{input}", rawInput));
             return true;
         }
 
@@ -41,12 +39,11 @@ public class SearchCommand implements CommandExecutor, TabCompleter {
         ShopItem shopItem = EconomyShopGUIHook.getShopItem(itemStack);
 
         if (shopItem == null) {
-            String msg = ESGSearch.getMessage("messages.not-in-shop").replace("{item}", matchedMaterial.name());
-            player.sendMessage(msg);
+            player.sendMessage(ESGSearch.getMessage("messages.not-in-shop").replace("{item}", matchedMaterial.name()));
             return true;
         }
 
-        SearchGUI.openSearchGUI(player, itemStack);
+        SearchGUI.openSearchGUI(player, shopItem, matchedMaterial);
         return true;
     }
 
@@ -57,9 +54,7 @@ public class SearchCommand implements CommandExecutor, TabCompleter {
         for (String key : section.getKeys(false)) {
             String formatsRaw = section.getString(key + ".formats");
             if (formatsRaw == null) continue;
-
-            String[] formats = formatsRaw.split(",");
-            for (String format : formats) {
+            for (String format : formatsRaw.split(",")) {
                 if (format.trim().equalsIgnoreCase(input)) {
                     return Material.matchMaterial(key);
                 }
@@ -77,11 +72,8 @@ public class SearchCommand implements CommandExecutor, TabCompleter {
                 for (String key : section.getKeys(false)) {
                     String formatsRaw = section.getString(key + ".formats");
                     if (formatsRaw != null) {
-                        String[] formats = formatsRaw.split(",");
-                        for (String f : formats) {
-                            if (f.trim().toLowerCase().startsWith(args[0].toLowerCase())) {
-                                completions.add(f.trim());
-                            }
+                        for (String f : formatsRaw.split(",")) {
+                            if (f.trim().toLowerCase().startsWith(args[0].toLowerCase())) completions.add(f.trim());
                         }
                     }
                 }
