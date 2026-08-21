@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+}
+
+group = 'cz.yourname.esgsearch'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://repo.papermc.io/repository/maven-public/' }
+    maven { url = 'https://repo.codemc.io/repository/maven-public/' }
+    maven { url = 'https://jitpack.io' }
+}
+
+dependencies {
+    compileOnly 'io.papermc.paper:paper-api:1.26.0-SNAPSHOT'
+    compileOnly 'com.github.Gypopo:EconomyShopGUI-API:v1.7.1'
+}
+
+def targetJavaVersion = 25
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
