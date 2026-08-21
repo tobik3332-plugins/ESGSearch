@@ -1,16 +1,25 @@
 package cz.yourname.esgsearch;
 
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.ChatColor;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class ESGSearch extends JavaPlugin {
 
     private static ESGSearch instance;
+    private static Economy econ = null;
 
     @Override
     public void onEnable() {
         instance = this;
         saveDefaultConfig();
+
+        if (!setupEconomy()) {
+            getLogger().severe("Nenalezen plugin Vault! Plugin se vypina.");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
 
         SearchCommand searchCommand = new SearchCommand();
         if (getCommand("search") != null) {
@@ -22,13 +31,24 @@ public final class ESGSearch extends JavaPlugin {
         getLogger().info("ESGSearch plugin byl uspesne aktivovan!");
     }
 
-    @Override
-    public void onDisable() {
-        getLogger().info("ESGSearch plugin byl vypnut.");
+    private boolean setupEconomy() {
+        if (getServer().getPluginManager().getPlugin("Vault") == null) {
+            return false;
+        }
+        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+        if (rsp == null) {
+            return false;
+        }
+        econ = rsp.getProvider();
+        return econ != null;
     }
 
     public static ESGSearch getInstance() {
         return instance;
+    }
+
+    public static Economy getEconomy() {
+        return econ;
     }
 
     public static String getMessage(String path) {
