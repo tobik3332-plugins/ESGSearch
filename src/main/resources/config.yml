@@ -1,22 +1,40 @@
-# ESGSearch Konfigurace
-messages:
-  prefix: "&8[&aESGSearch&8] "
-  only-player: "&cTento prikaz muze pouzit pouze hrac!"
-  usage: "&cPouziti: /search <nazev_predmetu>"
-  not-found: "&cPredmet '{input}' nebyl nalezen v seznamu povolenych predmetu!"
-  not-in-shop: "&cPredmet {item} se nenachazi v obchode EconomyShopGUI!"
+discord-webhook:
+  enabled: false
+  url: "https://discord.com/api/webhooks/YOUR_WEBHOOK_URL_HERE"
+  buy-message: "**{player}** si koupil **{amount}x {item}** za **${price}**!"
+  sell-message: "**{player}** prodal **{amount}x {item}** a vydělal **${price}**!"
 
 gui:
-  title: "&8Vyhledat predmet"
-  buy-button: "&a&lBUY (Koupit)"
-  sell-button: "&c&lSELL (Prodat)"
-  back-button: "&e&lZpet do /shop"
+  title: "&8Aukce / Obchod"
+  back-button: "&cZpět do obchodu"
+  buy-button:
+    name: "&a&lKOUPIT ({amount}x)"
+    lore:
+      - "&7Klikni pro nákup za &a${price}"
+  sell-button:
+    name: "&c&lPRODAT ({amount}x)"
+    lore:
+      - "&7Klikni pro prodej za &a${price}"
+  center-item:
+    lore-selected: "&7Vybrané množství: &e{amount}"
+    lore-buy-price: "&aCena za nákup: &f${price}"
+    lore-sell-price: "&cCena za prodej: &f${price}"
+    lore-cannot-sell: "&cTento předmět nelze prodat."
 
-# Seznam predmetu, ktery urcuje, co lze vyhledat a jake varianty hraci mohou napsat
+messages:
+  prefix: "&8[&eESGSearch&8] "
+  usage: "&cPoužití: /search <název položky|reload>"
+  only-player: "&cTento příkaz může použít pouze hráč!"
+  not-found: "&cPoložka '&e{input}&c' nebyla v konfiguraci nalezena!"
+  not-in-shop: "&cPoložka '&e{item}&c' se nenachází v obchodě!"
+  buy-success: "&aÚspěšně jsi koupil {amount}x {item} za ${price}"
+  sell-success: "&aÚspěšně jsi prodal {amount}x {item} za ${price}"
+  no-money: "&cNemáš dostatek peněz na tento nákup!"
+  no-items: "&cNemáš v inventáři dostatek těchto předmětů k prodeji!"
+  cannot-sell: "&cTento předmět nelze prodat."
+
 items:
   GRASS_BLOCK:
-    formats: "grassblock,Grass Block,grass block,grass_block"
+    formats: "Grass Block,grassblock,grass_block,grass block"
   DIRT:
-    formats: "dirt,Dirt,DIRT"
-  STONE:
-    formats: "stone,Stone"
+    formats: "Dirt,dirt"
