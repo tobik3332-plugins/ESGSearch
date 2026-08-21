@@ -2,6 +2,7 @@ package cz.yourname.esgsearch;
 
 import me.gypopo.economyshopgui.api.EconomyShopGUIHook;
 import me.gypopo.economyshopgui.objects.ShopItem;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -18,12 +19,24 @@ public class SearchCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player player)) {
-            sender.sendMessage(ESGSearch.getMessage("messages.only-player"));
+        if (args.length == 0) {
+            sender.sendMessage(ESGSearch.getMessage("messages.usage"));
             return true;
         }
-        if (args.length == 0) {
-            player.sendMessage(ESGSearch.getMessage("messages.usage"));
+
+        // PŘÍKAZ /search reload
+        if (args[0].equalsIgnoreCase("reload")) {
+            if (!sender.hasPermission("esgsearch.reload")) {
+                sender.sendMessage(ChatColor.RED + "Nemas opravneni k pouziti tohoto prikazu!");
+                return true;
+            }
+            ESGSearch.getInstance().reloadConfig();
+            sender.sendMessage(ChatColor.GREEN + "[ESGSearch] Konfigurace byla uspesne reloadovana!");
+            return true;
+        }
+
+        if (!(sender instanceof Player player)) {
+            sender.sendMessage(ESGSearch.getMessage("messages.only-player"));
             return true;
         }
 
@@ -67,13 +80,18 @@ public class SearchCommand implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length == 1) {
             List<String> completions = new ArrayList<>();
+            if ("reload".startsWith(args[0].toLowerCase()) && sender.hasPermission("esgsearch.reload")) {
+                completions.add("reload");
+            }
             ConfigurationSection section = ESGSearch.getInstance().getConfig().getConfigurationSection("items");
             if (section != null) {
                 for (String key : section.getKeys(false)) {
                     String formatsRaw = section.getString(key + ".formats");
                     if (formatsRaw != null) {
                         for (String f : formatsRaw.split(",")) {
-                            if (f.trim().toLowerCase().startsWith(args[0].toLowerCase())) completions.add(f.trim());
+                            if (f.trim().toLowerCase().startsWith(args[0].toLowerCase())) {
+                                completions.add(f.trim());
+                            }
                         }
                     }
                 }
