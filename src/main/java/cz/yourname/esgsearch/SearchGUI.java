@@ -29,7 +29,7 @@ public class SearchGUI implements Listener {
         ItemStack backButton = createCustomItem(Material.BARRIER, ESGSearch.getRawMessage("gui.back-button"));
 
         gui.setItem(4, buyButton);
-        gui.setItem(13, shopItem.getItemToDisplay());
+        gui.setItem(13, shopItem.getItemStack());
         gui.setItem(22, sellButton);
         gui.setItem(18, backButton);
 
@@ -61,10 +61,10 @@ public class SearchGUI implements Listener {
 
         if (slot == 4 && shopItem != null) {
             player.closeInventory();
-            EconomyShopGUIHook.openItemBuyScreen(player, shopItem);
+            EconomyShopGUIHook.openBuyScreen(player, shopItem);
         } else if (slot == 22 && shopItem != null) {
             player.closeInventory();
-            EconomyShopGUIHook.openItemSellScreen(player, shopItem);
+            EconomyShopGUIHook.openSellScreen(player, shopItem);
         } else if (slot == 18) {
             player.closeInventory();
             player.performCommand("shop");
