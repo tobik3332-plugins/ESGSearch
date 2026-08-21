@@ -1,0 +1,22 @@
+# ESGSearch Konfigurace
+messages:
+  prefix: "&8[&aESGSearch&8] "
+  only-player: "&cTento prikaz muze pouzit pouze hrac!"
+  usage: "&cPouziti: /search <nazev_predmetu>"
+  not-found: "&cPredmet '{input}' nebyl nalezen v seznamu povolenych predmetu!"
+  not-in-shop: "&cPredmet {item} se nenachazi v obchode EconomyShopGUI!"
+
+gui:
+  title: "&8Vyhledat predmet"
+  buy-button: "&a&lBUY (Koupit)"
+  sell-button: "&c&lSELL (Prodat)"
+  back-button: "&e&lZpet do /shop"
+
+# Seznam predmetu, ktery urcuje, co lze vyhledat a jake varianty hraci mohou napsat
+items:
+  GRASS_BLOCK:
+    formats: "grassblock,Grass Block,grass block,grass_block"
+  DIRT:
+    formats: "dirt,Dirt,DIRT"
+  STONE:
+    formats: "stone,Stone"
