@@ -12,7 +12,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class SearchCommand implements CommandExecutor, TabCompleter {
@@ -47,7 +46,7 @@ public class SearchCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        SearchGUI.openSearchGUI(player, shopItem);
+        SearchGUI.openSearchGUI(player, itemStack);
         return true;
     }
 
