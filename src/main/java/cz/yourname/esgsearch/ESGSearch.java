@@ -16,7 +16,7 @@ public final class ESGSearch extends JavaPlugin {
         saveDefaultConfig();
 
         if (!setupEconomy()) {
-            getLogger().severe("Nenalezen plugin Vault! Plugin se vypina.");
+            getLogger().severe("Nenalezen plugin Vault nebo poskytovatel ekonomiky! Plugin se vypina.");
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
