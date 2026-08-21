@@ -13,11 +13,9 @@ repositories {
 }
 
 dependencies {
-    // Paper API pro nejnovější verzi Minecraftu (1.21+)
     compileOnly 'io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT'
-    
-    // EconomyShopGUI API z JitPacku
     compileOnly 'com.github.Gypopo:EconomyShopGUI-API:1.7.1'
+    compileOnly 'com.github.MilkBowl:VaultAPI:1.7'
 }
 
 def targetJavaVersion = 21
