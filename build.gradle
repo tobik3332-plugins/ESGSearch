@@ -15,7 +15,11 @@ repositories {
 dependencies {
     compileOnly 'io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT'
     compileOnly 'com.github.Gypopo:EconomyShopGUI-API:1.7.1'
-    compileOnly 'com.github.MilkBowl:VaultAPI:1.7'
+    
+    // Zákaz tranzitivních závislostí vyřeší konflikt s Bukkit v Gradle 9
+    compileOnly('com.github.MilkBowl:VaultAPI:1.7') {
+        transitive = false
+    }
 }
 
 def targetJavaVersion = 21
