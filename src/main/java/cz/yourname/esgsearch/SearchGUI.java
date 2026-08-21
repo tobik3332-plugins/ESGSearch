@@ -1,7 +1,6 @@
 package cz.yourname.esgsearch;
 
 import me.gypopo.economyshopgui.api.EconomyShopGUIHook;
-import me.gypopo.economyshopgui.objects.ShopItem;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -19,12 +18,10 @@ import java.util.*;
 public class SearchGUI implements Listener {
 
     private static class Session {
-        ShopItem shopItem;
         Material material;
         int amount;
 
-        Session(ShopItem shopItem, Material material, int amount) {
-            this.shopItem = shopItem;
+        Session(Material material, int amount) {
             this.material = material;
             this.amount = amount;
         }
@@ -32,8 +29,8 @@ public class SearchGUI implements Listener {
 
     private static final Map<UUID, Session> sessions = new HashMap<>();
 
-    public static void openSearchGUI(Player player, ShopItem shopItem, Material material) {
-        Session session = new Session(shopItem, material, 1);
+    public static void openSearchGUI(Player player, Material material) {
+        Session session = new Session(material, 1);
         sessions.put(player.getUniqueId(), session);
 
         Inventory gui = Bukkit.createInventory(null, 45, ESGSearch.getRawMessage("gui.title"));
@@ -44,9 +41,11 @@ public class SearchGUI implements Listener {
     private static void updateGUI(Player player, Inventory gui, Session session) {
         gui.clear();
         
-        // Získání jednotkových cen bezpečně z Hooku
-        double unitBuyPrice = EconomyShopGUIHook.getItemBuyPrice(session.shopItem);
-        double unitSellPrice = EconomyShopGUIHook.getItemSellPrice(session.shopItem);
+        ItemStack singleItem = new ItemStack(session.material, 1);
+
+        // Získání jednotkových cen přímo přes ItemStack
+        double unitBuyPrice = EconomyShopGUIHook.getItemBuyPrice(singleItem);
+        double unitSellPrice = EconomyShopGUIHook.getItemSellPrice(singleItem);
 
         double buyPriceTotal = unitBuyPrice * session.amount;
         double sellPriceTotal = unitSellPrice * session.amount;
@@ -125,8 +124,9 @@ public class SearchGUI implements Listener {
         }
 
         Economy eco = ESGSearch.getEconomy();
-        double unitBuyPrice = EconomyShopGUIHook.getItemBuyPrice(session.shopItem);
-        double unitSellPrice = EconomyShopGUIHook.getItemSellPrice(session.shopItem);
+        ItemStack singleItem = new ItemStack(session.material, 1);
+        double unitBuyPrice = EconomyShopGUIHook.getItemBuyPrice(singleItem);
+        double unitSellPrice = EconomyShopGUIHook.getItemSellPrice(singleItem);
 
         // NÁKUP (Slot 13)
         if (slot == 13) {
