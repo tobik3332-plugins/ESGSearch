@@ -1,7 +1,6 @@
 package cz.yourname.esgsearch;
 
 import me.gypopo.economyshopgui.api.EconomyShopGUIHook;
-import me.gypopo.economyshopgui.objects.ShopItem;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -24,7 +23,6 @@ public class SearchCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        // PŘÍKAZ /search reload
         if (args[0].equalsIgnoreCase("reload")) {
             if (!sender.hasPermission("esgsearch.reload")) {
                 sender.sendMessage(ChatColor.RED + "Nemas opravneni k pouziti tohoto prikazu!");
@@ -49,14 +47,14 @@ public class SearchCommand implements CommandExecutor, TabCompleter {
         }
 
         ItemStack itemStack = new ItemStack(matchedMaterial);
-        ShopItem shopItem = EconomyShopGUIHook.getShopItem(itemStack);
-
-        if (shopItem == null) {
+        
+        // Zkontrolujeme, zda předmět vůbec existuje v obchodě
+        if (EconomyShopGUIHook.getShopItem(itemStack) == null) {
             player.sendMessage(ESGSearch.getMessage("messages.not-in-shop").replace("{item}", matchedMaterial.name()));
             return true;
         }
 
-        SearchGUI.openSearchGUI(player, shopItem, matchedMaterial);
+        SearchGUI.openSearchGUI(player, matchedMaterial);
         return true;
     }
 
