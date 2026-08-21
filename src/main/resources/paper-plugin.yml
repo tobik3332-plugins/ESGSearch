@@ -1,9 +1,12 @@
 name: ESGSearch
 version: '1.0.0'
 main: cz.yourname.esgsearch.ESGSearch
-api-version: '1.26'
+api-version: '1.21'
 dependencies:
   server:
     EconomyShopGUI:
+      load: BEFORE
+      required: true
+    Vault:
       load: BEFORE
       required: true
