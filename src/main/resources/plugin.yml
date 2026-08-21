@@ -1,0 +1,11 @@
+name: ESGSearch
+version: '1.0.0'
+main: cz.yourname.esgsearch.ESGSearch
+api-version: '1.21'
+depend: [EconomyShopGUI, Vault]
+
+commands:
+  search:
+    description: Vyhledavani itemu v obchode
+    usage: /search <item|reload>
+    permission: esgsearch.use
