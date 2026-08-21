@@ -1,7 +1,6 @@
 package cz.yourname.esgsearch;
 
 import me.gypopo.economyshopgui.api.EconomyShopGUIHook;
-import me.gypopo.economyshopgui.objects.ShopItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -18,9 +17,9 @@ import java.util.UUID;
 
 public class SearchGUI implements Listener {
 
-    private static final Map<UUID, ShopItem> activeSearches = new HashMap<>();
+    private static final Map<UUID, ItemStack> activeSearches = new HashMap<>();
 
-    public static void openSearchGUI(Player player, ShopItem shopItem) {
+    public static void openSearchGUI(Player player, ItemStack itemStack) {
         String title = ESGSearch.getRawMessage("gui.title");
         Inventory gui = Bukkit.createInventory(null, 27, title);
 
@@ -29,11 +28,11 @@ public class SearchGUI implements Listener {
         ItemStack backButton = createCustomItem(Material.BARRIER, ESGSearch.getRawMessage("gui.back-button"));
 
         gui.setItem(4, buyButton);
-        gui.setItem(13, shopItem.getItemToDisplay());
+        gui.setItem(13, itemStack);
         gui.setItem(22, sellButton);
         gui.setItem(18, backButton);
 
-        activeSearches.put(player.getUniqueId(), shopItem);
+        activeSearches.put(player.getUniqueId(), itemStack);
         player.openInventory(gui);
     }
 
@@ -57,18 +56,15 @@ public class SearchGUI implements Listener {
         if (!(event.getWhoClicked() instanceof Player player)) return;
 
         int slot = event.getRawSlot();
-        ShopItem shopItem = activeSearches.get(player.getUniqueId());
+        ItemStack itemStack = activeSearches.get(player.getUniqueId());
 
-        if (shopItem != null) {
-            String section = shopItem.getSection();
-            String itemKey = shopItem.getItemKey();
-
+        if (itemStack != null) {
             if (slot == 4) {
                 player.closeInventory();
-                EconomyShopGUIHook.openBuyScreen(player, section, itemKey);
+                EconomyShopGUIHook.openItemBuyScreen(player, itemStack);
             } else if (slot == 22) {
                 player.closeInventory();
-                EconomyShopGUIHook.openSellScreen(player, section, itemKey);
+                EconomyShopGUIHook.openItemSellScreen(player, itemStack);
             }
         }
 
