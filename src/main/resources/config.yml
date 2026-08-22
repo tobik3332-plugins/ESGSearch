@@ -6,20 +6,70 @@ discord-webhook:
 
 gui:
   title: "&8Aukce / Obchod"
-  back-button: "&cZpět do obchodu"
-  buy-button:
-    name: "&a&lKOUPIT ({amount}x)"
-    lore:
-      - "&7Klikni pro nákup za &a${price}"
-  sell-button:
-    name: "&c&lPRODAT ({amount}x)"
-    lore:
-      - "&7Klikni pro prodej za &a${price}"
+  size: 45
+  
+  slots:
+    center-item: 22
+    buy-button: 13
+    sell-button: 31
+    back-button: 36
+    minus-32: 19
+    minus-16: 20
+    minus-1: 21
+    plus-1: 23
+    plus-16: 24
+    plus-32: 25
+
   center-item:
+    name: "&6&l{item}"
     lore-selected: "&7Vybrané množství: &e{amount}"
     lore-buy-price: "&aCena za nákup: &f${price}"
     lore-sell-price: "&cCena za prodej: &f${price}"
     lore-cannot-sell: "&cTento předmět nelze prodat."
+
+  buy-button:
+    material: EMERALD_BLOCK
+    name: "&a&lKOUPIT ({amount}x)"
+    lore:
+      - "&7Klikni pro nákup za &a${price}"
+
+  sell-button:
+    material: REDSTONE_BLOCK
+    name: "&c&lPRODAT ({amount}x)"
+    lore:
+      - "&7Klikni pro prodej za &a${price}"
+      - "&eShift + Levý klik: Prodat VŠECHNO ({all_amount}x za ${all_price})"
+
+  back-button:
+    material: BARRIER
+    name: "&cZpět do obchodu"
+    lore:
+      - "&7Klikni pro návrat"
+
+  minus-32:
+    material: RED_STAINED_GLASS_PANE
+    name: "&c-32"
+    lore: []
+  minus-16:
+    material: RED_STAINED_GLASS_PANE
+    name: "&c-16"
+    lore: []
+  minus-1:
+    material: RED_STAINED_GLASS_PANE
+    name: "&c-1"
+    lore: []
+  plus-1:
+    material: GREEN_STAINED_GLASS_PANE
+    name: "&a+1"
+    lore: []
+  plus-16:
+    material: GREEN_STAINED_GLASS_PANE
+    name: "&a+16"
+    lore: []
+  plus-32:
+    material: GREEN_STAINED_GLASS_PANE
+    name: "&a+32"
+    lore: []
 
 messages:
   prefix: "&8[&eESGSearch&8] "
@@ -32,6 +82,8 @@ messages:
   no-money: "&cNemáš dostatek peněz na tento nákup!"
   no-items: "&cNemáš v inventáři dostatek těchto předmětů k prodeji!"
   cannot-sell: "&cTento předmět nelze prodat."
+  chat-prompt: "&eNapiš do chatu název položky, kterou chceš vyhledat (nebo &ccancel &epro zrušení):"
+  chat-cancelled: "&cVyhledávání bylo zrušeno."
 
 items:
   GRASS_BLOCK:
