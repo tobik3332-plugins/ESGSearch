@@ -28,28 +28,20 @@ public final class ESGSearch extends JavaPlugin {
         }
 
         getServer().getPluginManager().registerEvents(new SearchGUI(), this);
+        getServer().getPluginManager().registerEvents(new ChatListener(), this);
         getLogger().info("ESGSearch plugin byl uspesne aktivovan!");
     }
 
     private boolean setupEconomy() {
-        if (getServer().getPluginManager().getPlugin("Vault") == null) {
-            return false;
-        }
+        if (getServer().getPluginManager().getPlugin("Vault") == null) return false;
         RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
-        if (rsp == null) {
-            return false;
-        }
+        if (rsp == null) return false;
         econ = rsp.getProvider();
         return econ != null;
     }
 
-    public static ESGSearch getInstance() {
-        return instance;
-    }
-
-    public static Economy getEconomy() {
-        return econ;
-    }
+    public static ESGSearch getInstance() { return instance; }
+    public static Economy getEconomy() { return econ; }
 
     public static String getMessage(String path) {
         String msg = instance.getConfig().getString(path, "");
@@ -58,7 +50,6 @@ public final class ESGSearch extends JavaPlugin {
     }
 
     public static String getRawMessage(String path) {
-        String msg = instance.getConfig().getString(path, "");
-        return ChatColor.translateAlternateColorCodes('&', msg);
+        return ChatColor.translateAlternateColorCodes('&', instance.getConfig().getString(path, ""));
     }
 }
